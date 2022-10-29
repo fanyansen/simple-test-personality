@@ -126,13 +126,14 @@ export default function OutlinedCard(props: OutlinedCardProps) {
   const [allAnswer, setAllAnswer] = useState<string[]>([]);
   const [noQuiz, setNoQuiz] = useState(0);
   const [testDone, setTestDone] = useState(false);
+  const [currentQuestions, setQuestions] = useState([...questions]);
 
   return (
     <Box sx={{ minWidth: 275 }}>
       {!testDone && (
         <Card variant="outlined">
           {questionsCard(
-            questions,
+            currentQuestions,
             noQuiz,
             (value: number) => setNoQuiz(value),
             allAnswer,
@@ -146,7 +147,9 @@ export default function OutlinedCard(props: OutlinedCardProps) {
       )}
       {testDone &&
         allAnswer.map((value, idx) => (
-          <Card variant="outlined">{resultCard(questions, idx, value)}</Card>
+          <Card variant="outlined">
+            {resultCard(currentQuestions, idx, value)}
+          </Card>
         ))}
       {testDone && (
         <Card variant="outlined">
@@ -158,6 +161,8 @@ export default function OutlinedCard(props: OutlinedCardProps) {
                 setNoQuiz(0);
                 setTestDone(false);
                 setProgress(0);
+                currentQuestions.sort(() => Math.random() - 0.5);
+                setQuestions(currentQuestions);
               }}
             >
               Retry

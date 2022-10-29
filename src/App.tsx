@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
 import LinearProgressCustom from "./Components/LinearProgressCustom";
 import QuestionCard from "./Components/QuestionCard";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const questions = [
   {
@@ -37,12 +37,6 @@ questions.sort(() => Math.random() - 0.5);
 
 function App() {
   const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    if (progress === 100) {
-      questions.sort(() => Math.random() - 0.5);
-    }
-  }, [progress]);
 
   return (
     <Container maxWidth="xl">
